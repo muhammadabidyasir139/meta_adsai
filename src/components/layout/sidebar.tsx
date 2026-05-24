@@ -5,9 +5,6 @@ import Link from 'next/link';
 
 const navItems = [
   { icon: '📊', label: 'Dashboard', href: '/dashboard' },
-  { icon: '🎯', label: 'Meta Ads',   href: '/meta-ads' },
-  { icon: '🤖', label: 'Intelligence', href: '/intelligence' },
-  { icon: '📦', label: 'Products',   href: '/products' },
   { icon: '📈', label: 'Analytics',  href: '/analytics' },
   { icon: '📁', label: 'Reports',    href: '/reports' },
   { icon: '⚙️', label: 'Settings',  href: '/settings' },

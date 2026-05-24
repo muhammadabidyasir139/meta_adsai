@@ -122,6 +122,7 @@ else:
 
 # Fill remaining NaN from lags
 df = df.fillna(df.median(numeric_only=True))
+df = df.replace([np.inf, -np.inf], 0)
 
 print(f"Features after engineering: {df.shape[1]} columns")
 
@@ -423,7 +424,7 @@ ax9.legend(facecolor='#1a1a2e', edgecolor='white', labelcolor='white')
 plt.tight_layout(rect=[0, 0, 1, 0.97])
 plt.savefig("ads_decision_dashboard.png", dpi=150, bbox_inches='tight',
             facecolor='#0f0f1a')
-plt.show()
+# plt.show()
 print("[INFO] Dashboard saved as 'ads_decision_dashboard.png'")
 
 # ============================================================
@@ -497,11 +498,11 @@ def predict_ad_decision(gross_sales, net_sales, total_sales, order_count,
 
     roas = input_dict['ROAS']
     if pred_label == 'INCREASE':
-        advice = f"✅ TINGKATKAN BUDGET ADS (ROAS={roas:.2f}x) — Produk menghasilkan return yang sangat baik!"
+        advice = f"[INCREASE] TINGKATKAN BUDGET ADS (ROAS={roas:.2f}x) — Produk menghasilkan return yang sangat baik!"
     elif pred_label == 'DECREASE':
-        advice = f"🔴 KURANGI BUDGET ADS (ROAS={roas:.2f}x) — Efisiensi rendah, pertimbangkan realokasi budget."
+        advice = f"[DECREASE] KURANGI BUDGET ADS (ROAS={roas:.2f}x) — Efisiensi rendah, pertimbangkan realokasi budget."
     else:
-        advice = f"🟡 PERTAHANKAN BUDGET ADS (ROAS={roas:.2f}x) — Performa stabil, pantau terus trendnya."
+        advice = f"[MAINTAIN] PERTAHANKAN BUDGET ADS (ROAS={roas:.2f}x) — Performa stabil, pantau terus trendnya."
 
     return {
         "decision":    pred_label,
@@ -543,4 +544,4 @@ joblib.dump({
 }, "best_ads_model.pkl")
 
 print(f"[INFO] Best model '{best_model_name}' saved to 'best_ads_model.pkl'")
-print("\n✅ SELESAI! Model siap digunakan untuk pengambilan keputusan Ads Spend.")
+print("\nSELESAI! Model siap digunakan untuk pengambilan keputusan Ads Spend.")
